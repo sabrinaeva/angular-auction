@@ -4,16 +4,17 @@
     <h4>{{product.name}}</h4>
     <p class="pull-right">{{product.price}}元</p>
     <p>{{product.desc}}</p>
-    <app-stars [productRating]="product.rating">星</app-stars>
+    <app-stars [rating]="product.rating">星</app-stars>
 
   </div>
   <hr>
   <div class="form-group">
     <button class="btn btn-success" (click)="sendComment = isHiddenSend = !isHiddenSend">发表评论</button>
     <div [hidden]="isHiddenSend">
-      <app-stars [productRating]="rating" [readonly]="false"></app-stars>
-      <textarea class="form-control">
-      </textarea>
+      <app-stars [(rating)]="newRating" [readonly]="false"></app-stars>
+      <div>
+         <textarea [(ngModel)]="newComment"></textarea>
+      </div>
       <button class="btn btn-primary" (click)="submitComment()">提交</button>
     </div>
   </div>
@@ -22,7 +23,7 @@
       <p>{{comment.content}}</p>
       <p class="pull-right">{{comment.timestamp}}</p>
       <p class="pull-right">{{comment.user}}</p>
-      <app-stars [productRating]="comment.rating" ></app-stars>
+      <app-stars [rating]="comment.rating"></app-stars>
       <hr>
     </div>
   </div>

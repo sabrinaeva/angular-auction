@@ -11,8 +11,8 @@ export class ProductDetailComponent implements OnInit {
   isHiddenSend: boolean = true;
   product:Product;
   comments:Comment[];
-  content: string;
-  rating: number;
+  newComment: string = "";
+  newRating: number = 5;
 
   constructor(private routInfo:ActivatedRoute, private productService: ProductService) { }
 
@@ -22,9 +22,14 @@ export class ProductDetailComponent implements OnInit {
     this.comments = this.productService.getCommentByProductId(productId);
   }
   submitComment(){
-    let commnet = new Comment(0,this.product.id, this.content, this.rating ,'XX','2017-6-9');
+    let comment = new Comment(0,this.product.id, this.newComment, this.newRating ,'XX','2017-6-9');
     this.isHiddenSend = true;
-    this.comments.unshift(commnet);
+    this.comments.unshift(comment);
+    this.newRating = 5;
+    this.newComment = '';
+    var sum = this.comments.reduce((sum, comment) => sum += comment.rating, 0);
+    this.product.rating = sum/this.comments.length;
   }
+
 
 }
