@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ProductService} from "../service/product.service";
 
 @Component({
   selector: 'app-search',
@@ -6,10 +8,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+  formModel:FormGroup;
+  categories:string[];
 
-  constructor() { }
+  constructor( fb:FormBuilder, private productService:ProductService) {
+    this.formModel = fb.group({
+      userName: ['', Validators.required],
+      price:[null],
+      category:['-1']
+    });
+    this.categories = this.productService.getAllcategories();
+
+  }
 
   ngOnInit() {
+  }
+  searchProduct(){
+    console.log(this.formModel.value);
+    console.log('表单验证结果：'+this.formModel.valid);
   }
 
 }

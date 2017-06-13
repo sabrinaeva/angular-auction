@@ -36,6 +36,11 @@ export class ProductService {
     })
   }
 
+  getAllcategories():string[]{
+    return ['电子产品','鞋子','图书']
+
+  }
+
 }
 
 export class Product{
